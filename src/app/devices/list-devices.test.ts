@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { listDevices } from './list-devices';
-import { FakeDeviceRepo } from '../infra/fake-device-repo';
-import { Device } from '../domain/device';
+import { Device } from '../../domain/device';
+import { FakeDeviceRepo } from '../../infra/fake-device-repo';
 
 describe('listDevices', () => {
   it('should return empty array when no devices exist', async () => {
