@@ -1,20 +1,20 @@
 import { describe, it, expect } from 'vitest';
-import { createProduct, ProductError } from './product';
+import { createDevice, DeviceError } from './device';
 
-describe('createProduct', () => {
-  describe('valid product creation', () => {
-    it('should create a product with valid parameters', () => {
+describe('createDevice', () => {
+  describe('valid device creation', () => {
+    it('should create a device with valid parameters', () => {
       const params = {
         id: 'prod-123',
-        name: 'Test Product',
+        name: 'Test device',
         pricePence: 1999,
-        description: 'A great test product',
+        description: 'A great test device',
         updatedAt: new Date('2025-01-01'),
       };
 
-      const product = createProduct(params);
+      const device = createDevice(params);
 
-      expect(product).toEqual(params);
+      expect(device).toEqual(params);
     });
 
     it('should allow a price of zero pence', () => {
@@ -22,53 +22,53 @@ describe('createProduct', () => {
         id: 'prod-zero',
         name: 'Freebie',
         pricePence: 0,
-        description: 'Free product',
+        description: 'Free device',
         updatedAt: new Date(),
       };
 
-      const product = createProduct(params);
+      const device = createDevice(params);
 
-      expect(product.pricePence).toBe(0);
+      expect(device.pricePence).toBe(0);
     });
   });
 
   describe('id validation', () => {
-    it('should throw ProductError when id is only whitespace', () => {
+    it('should throw DeviceError when id is only whitespace', () => {
       const params = {
         id: '   ',
-        name: 'Test Product',
+        name: 'Test device',
         pricePence: 1999,
-        description: 'A test product',
+        description: 'A test device',
         updatedAt: new Date(),
       };
 
-      const act = () => createProduct(params as any);
+      const act = () => createDevice(params as any);
 
-      expect(act).toThrow(ProductError);
+      expect(act).toThrow(DeviceError);
     });
 
-    it('should include the field name on ProductError for invalid id', () => {
+    it('should include the field name on DeviceError for invalid id', () => {
       const params = {
         id: '',
-        name: 'Test Product',
+        name: 'Test device',
         pricePence: 100,
-        description: 'A test product',
+        description: 'A test device',
         updatedAt: new Date(),
       };
 
       try {
-        createProduct(params as any);
+        createDevice(params as any);
         // If no error thrown, fail the test explicitly
         expect(false).toBe(true);
       } catch (err) {
-        expect(err).toBeInstanceOf(ProductError);
-        expect((err as ProductError).field).toBe('id');
+        expect(err).toBeInstanceOf(DeviceError);
+        expect((err as DeviceError).field).toBe('id');
       }
     });
   });
 
   describe('name and description validation', () => {
-    it('should throw ProductError when name is only whitespace', () => {
+    it('should throw DeviceError when name is only whitespace', () => {
       const params = {
         id: 'prod-1',
         name: '   ',
@@ -77,12 +77,12 @@ describe('createProduct', () => {
         updatedAt: new Date(),
       };
 
-      const act = () => createProduct(params as any);
+      const act = () => createDevice(params as any);
 
-      expect(act).toThrow(ProductError);
+      expect(act).toThrow(DeviceError);
     });
 
-    it('should throw ProductError when description is only whitespace', () => {
+    it('should throw DeviceError when description is only whitespace', () => {
       const params = {
         id: 'prod-2',
         name: 'Valid Name',
@@ -91,14 +91,14 @@ describe('createProduct', () => {
         updatedAt: new Date(),
       };
 
-      const act = () => createProduct(params as any);
+      const act = () => createDevice(params as any);
 
-      expect(act).toThrow(ProductError);
+      expect(act).toThrow(DeviceError);
     });
   });
 
   describe('pricePence validation', () => {
-    it('should throw ProductError when price is negative', () => {
+    it('should throw DeviceError when price is negative', () => {
       const params = {
         id: 'prod-neg',
         name: 'Bad Price',
@@ -107,12 +107,12 @@ describe('createProduct', () => {
         updatedAt: new Date(),
       };
 
-      const act = () => createProduct(params as any);
+      const act = () => createDevice(params as any);
 
-      expect(act).toThrow(ProductError);
+      expect(act).toThrow(DeviceError);
     });
 
-    it('should throw ProductError when price is not an integer', () => {
+    it('should throw DeviceError when price is not an integer', () => {
       const params = {
         id: 'prod-float',
         name: 'Float Price',
@@ -121,14 +121,14 @@ describe('createProduct', () => {
         updatedAt: new Date(),
       };
 
-      const act = () => createProduct(params as any);
+      const act = () => createDevice(params as any);
 
-      expect(act).toThrow(ProductError);
+      expect(act).toThrow(DeviceError);
     });
   });
 
   describe('updatedAt validation', () => {
-    it('should throw ProductError when updatedAt is not a Date', () => {
+    it('should throw DeviceError when updatedAt is not a Date', () => {
       const params = {
         id: 'prod-date',
         name: 'Bad Date',
@@ -137,12 +137,12 @@ describe('createProduct', () => {
         updatedAt: '2025-01-01' as any,
       };
 
-      const act = () => createProduct(params as any);
+      const act = () => createDevice(params as any);
 
-      expect(act).toThrow(ProductError);
+      expect(act).toThrow(DeviceError);
     });
 
-    it('should throw ProductError when updatedAt is an invalid Date', () => {
+    it('should throw DeviceError when updatedAt is an invalid Date', () => {
       const params = {
         id: 'prod-invalid-date',
         name: 'Invalid Date',
@@ -151,9 +151,9 @@ describe('createProduct', () => {
         updatedAt: new Date('not-a-date'),
       };
 
-      const act = () => createProduct(params as any);
+      const act = () => createDevice(params as any);
 
-      expect(act).toThrow(ProductError);
+      expect(act).toThrow(DeviceError);
     });
   });
 });

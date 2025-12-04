@@ -2,13 +2,13 @@
 
 ## Project
 
-This project provides Azure Functions for managing products.
+This project provides Azure Functions for managing devices.
 
 ### Available Endpoints
 
-- `GET /api/products` - List all products
-- `POST /api/products` - Upsert (create or update) a product
-- `PUT /api/products` - Upsert (create or update) a product
+- `GET /api/devices` - List all devices
+- `POST /api/devices` - Upsert (create or update) a device
+- `PUT /api/devices` - Upsert (create or update) a device
 
 ## Local Setup
 
@@ -36,7 +36,7 @@ This project provides Azure Functions for managing products.
 
 This project includes the Vitest framework.
 
-There are example unit tests in `src/domain/product.test.ts` and `src/app/list-products.test.ts`.
+There are example unit tests in `src/domain/device.test.ts` and `src/app/list-devices.test.ts`.
 
 Run all unit tests:
 
@@ -50,7 +50,7 @@ Run a coverage report:
 npm run test:coverage
 ```
 
-The framework is configured in `vitest.config.ts` for co-located unit tests: in other words, each test file (`X.test.ts`) lives beside its matching production file (`X.ts`), keeping tests close to the code they verify.
+The framework is configured in `vitest.config.ts` for co-located unit tests: in other words, each test file (`X.test.ts`) lives beside its matching deviceion file (`X.ts`), keeping tests close to the code they verify.
 
 > There may be other branches in this repo demonstrating additional testing features.
 
@@ -81,7 +81,7 @@ The framework is configured in `vitest.config.ts` for co-located unit tests: in 
    }
    ```
 
-   The `exclude` prevents test code being compiled into your production build.
+   The `exclude` prevents test code being compiled into your deviceion build.
 
 3. Create `vitest.config.ts` in the root of the project:
 

@@ -1,40 +1,40 @@
-import { ListProductsDeps } from '../app/list-products';
-import { UpsertProductDeps } from '../app/upsert-product';
-import { ProductRepo } from '../domain/product-repo';
-import type { Product } from '../domain/product';
-import { FakeProductRepo } from '../infra/fake-product-repo';
+import { DeviceRepo } from '../domain/device-repo';
+import type { Device } from '../domain/device';
+import { FakeDeviceRepo } from '../infra/fake-device-repo';
+import { ListDevicesDeps } from '../app/list-products';
+import { UpsertDeviceDeps } from '../app/devices/upsert-device';
 
-let cachedProductRepo: ProductRepo | null = null;
+let cachedDeviceRepo: DeviceRepo | null = null;
 
-export const getProductRepo = (): ProductRepo => {
-  if (!cachedProductRepo) {
+export const getDeviceRepo = (): DeviceRepo => {
+  if (!cachedDeviceRepo) {
     const now = new Date();
-    const initialProducts: Product[] = [
+    const initialDevices: Device[] = [
       {
         id: 'p-001',
         name: 'Seeded Widget',
         pricePence: 1299,
-        description: 'A seeded example product for local testing.',
+        description: 'A seeded example device for local testing.',
         updatedAt: new Date(now.getTime() - 1000 * 60 * 60 * 24), // 1 day ago
       },
       {
         id: 'p-002',
         name: 'Seeded Gadget',
         pricePence: 2599,
-        description: 'Another seeded product to get you started.',
+        description: 'Another seeded device to get you started.',
         updatedAt: now,
       },
     ];
-    cachedProductRepo = new FakeProductRepo(initialProducts);
+    cachedDeviceRepo = new FakeDeviceRepo(initialDevices);
   }
-  return cachedProductRepo;
+  return cachedDeviceRepo;
 };
 
-export const makeListProductsDeps = (): ListProductsDeps => ({
-  productRepo: getProductRepo(),
+export const makeListDevicesDeps = (): ListDevicesDeps => ({
+  deviceRepo: getDeviceRepo(),
 });
 
-export const makeUpsertProductDeps = (): UpsertProductDeps => ({
-  productRepo: getProductRepo(),
+export const makeUpsertDeviceDeps = (): UpsertDeviceDeps => ({
+  deviceRepo: getDeviceRepo(),
   now: () => new Date(),
 });

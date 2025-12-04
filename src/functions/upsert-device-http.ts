@@ -1,8 +1,8 @@
 import { app, HttpRequest, HttpResponseInit } from '@azure/functions';
-import { upsertProduct } from '../app/upsert-product';
-import { makeUpsertProductDeps } from '../config/appServices';
+import { makeUpsertDeviceDeps } from '../config/appServices';
+import { upsertDevice } from '../app/devices/upsert-device';
 
-const upsertProductHandler = async (
+const upsertDeviceHandler = async (
   request: HttpRequest
 ): Promise<HttpResponseInit> => {
   try {
@@ -31,8 +31,8 @@ const upsertProductHandler = async (
       };
     }
 
-    const deps = makeUpsertProductDeps();
-    const result = await upsertProduct(deps, {
+    const deps = makeUpsertDeviceDeps();
+    const result = await upsertDevice(deps, {
       id,
       name,
       pricePence,
@@ -44,7 +44,7 @@ const upsertProductHandler = async (
         status: 400,
         jsonBody: {
           success: false,
-          message: 'Failed to upsert product',
+          message: 'Failed to upsert device',
           error: result.error,
         },
       };
@@ -69,9 +69,9 @@ const upsertProductHandler = async (
   }
 };
 
-app.http('upsertProductHttp', {
+app.http('upsertDeviceHttp', {
   methods: ['PUT', 'POST'],
   authLevel: 'anonymous',
-  route: 'products',
-  handler: upsertProductHandler,
+  route: 'devices',
+  handler: upsertDeviceHandler,
 });
