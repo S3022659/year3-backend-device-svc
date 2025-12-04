@@ -1,40 +1,75 @@
-name: Deploy to Azure Functions
+# week9 https://github.com/S3022659/cis3039-example-cicd-app
+
+name: Build and Deploy to Test
 
 on:
   push:
     branches: [master]
+  pull_request:
+    branches: [master]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  build-and-deploy:
+  build-and-publish:
     runs-on: ubuntu-latest
-    name: Build and deploy
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 18
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (TypeScript)
+      - name: Build (into ./dist)
         run: npm run build
 
-      - name: Deploy to Azure Functions
-        uses: Azure/functions-action@v1
+      - name: Publish function app to package folder
+        run: |
+          # make an empty package folder
+          rm -rf package
+          mkdir package
+
+          # copy root metadata
+          cp host.json package/
+          cp package.json package/
+          cp package-lock.json package/
+
+          # copy compiled JS
+          cp -r dist package/dist
+
+          # install runtime dependencies only (no devDeps) into the package
+          npm ci --omit=dev --prefix package
+
+      - name: Save package temporarily for deployment
+        uses: actions/upload-artifact@v4
         with:
-          app-name: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}
-          package: '.'
-        env:
-          # Create the publish profile on the Azure portal and add it to the repo secrets
-          AZURE_FUNCTIONAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
-# Notes:
-# - Create two repository secrets before running this workflow:
-#   1) AZURE_FUNCTIONAPP_NAME      -> the name of your Function App in Azure
-#   2) AZURE_FUNCTIONAPP_PUBLISH_PROFILE -> the publish profile XML (from Azure portal)
-# - This workflow builds the project with `npm run build` (which runs `tsc`) then deploys the repository contents.
-# - If your built JS files live in `dist/` and the function app expects only compiled output, you can set `package: 'dist'` above instead of '.'.
+          name: functionapp-package
+          path: package
+          retention-days: 1
+
+  deploy-to-test:
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download package artefact
+        uses: actions/download-artifact@v4
+        with:
+          name: functionapp-package
+          path: package
+
+      - name: Deploy to Azure Function App
+        uses: azure/functions-action@v1
+        with:
+          app-name: 'ica-function-jc76'
+          package: package
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
