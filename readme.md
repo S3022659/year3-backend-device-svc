@@ -116,3 +116,7 @@ The framework is configured in `vitest.config.ts` for co-located unit tests: in 
    ```
 
    This excludes the generated test outputs from being commited to your git repo.
+
+npm run build
+
+func azure functionapp publish ica-function-jc76
