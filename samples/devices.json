@@ -1,0 +1,50 @@
+[
+  {
+    "id": "device-001",
+    "name": "MacBook Pro 16-inch",
+    "price": 249999,
+    "description": "High-performance laptop with M3 Max chip, 16-inch Liquid Retina XDR display, 36GB unified memory, and 1TB SSD storage"
+  },
+  {
+    "id": "device-002",
+    "name": "Dell XPS 15",
+    "price": 179999,
+    "description": "Premium ultrabook with Intel Core i7, RTX 4060, 16GB RAM, 512GB NVMe SSD, and 15.6-inch FHD+ display"
+  },
+  {
+    "id": "device-003",
+    "name": "iPad Pro 12.9-inch",
+    "price": 119999,
+    "description": "Powerful tablet with M2 chip, 12.9-inch Liquid Retina XDR display, 8GB RAM, and 128GB storage"
+  },
+  {
+    "id": "device-004",
+    "name": "iPad Air 11-inch",
+    "price": 79999,
+    "description": "Versatile tablet with M1 chip, 11-inch Liquid Retina display, 8GB RAM, and 64GB storage"
+  },
+  {
+    "id": "device-005",
+    "name": "ThinkPad X1 Carbon",
+    "price": 159999,
+    "description": "Business laptop with Intel Core i7, 14-inch IPS display, 16GB RAM, 512GB SSD, and all-day battery"
+  },
+  {
+    "id": "device-006",
+    "name": "Surface Laptop 5",
+    "price": 129999,
+    "description": "Sleek Windows laptop with Intel Core i5, 13.5-inch PixelSense touchscreen, 8GB RAM, and 256GB SSD"
+  },
+  {
+    "id": "device-007",
+    "name": "Samsung Galaxy Tab S9",
+    "price": 89999,
+    "description": "Android tablet with Snapdragon 8 Gen 2, 11-inch Dynamic AMOLED display, 8GB RAM, and 128GB storage"
+  },
+  {
+    "id": "device-008",
+    "name": "ASUS ZenBook 14",
+    "price": 99999,
+    "description": "Ultra-portable laptop with AMD Ryzen 5, 14-inch FHD display, 16GB RAM, 512GB SSD, and lightweight design"
+  }
+]

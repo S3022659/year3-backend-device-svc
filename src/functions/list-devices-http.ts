@@ -22,10 +22,7 @@ const listDevicesHandler = async (
   const devices = result.data ?? [];
   return {
     status: 200,
-    jsonBody: devices.map((device) => ({
-      ...device,
-      updatedAt: device.updatedAt.toISOString(),
-    })),
+    jsonBody: devices,
   };
 };
 

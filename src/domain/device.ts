@@ -1,7 +1,7 @@
 export type Device = {
   id: string;
   name: string;
-  pricePence: number;
+  price: number;
   description: string;
   updatedAt: Date;
 };
@@ -9,7 +9,7 @@ export type Device = {
 export type CreateDeviceParams = {
   id: string;
   name: string;
-  pricePence: number;
+  price: number;
   description: string;
   updatedAt: Date;
 };
@@ -33,9 +33,9 @@ const validateDevice = (params: CreateDeviceParams): void => {
     throw new DeviceError('name', 'Device name must be a non-empty string.');
   }
   if (
-    typeof params.pricePence !== 'number' ||
-    params.pricePence < 0 ||
-    !Number.isInteger(params.pricePence)
+    typeof params.price !== 'number' ||
+    params.price < 0 ||
+    !Number.isInteger(params.price)
   ) {
     throw new DeviceError(
       'pricePence',
@@ -52,7 +52,7 @@ const validateDevice = (params: CreateDeviceParams): void => {
       'Device description must be a non-empty string.'
     );
   }
-  if (
+  /*if (
     !(params.updatedAt instanceof Date) ||
     isNaN(params.updatedAt.getTime())
   ) {
@@ -60,7 +60,7 @@ const validateDevice = (params: CreateDeviceParams): void => {
       'updatedAt',
       'updatedAt must be a valid Date object.'
     );
-  }
+  }*/
 };
 
 export const createDevice = (params: CreateDeviceParams): Device => {
@@ -69,7 +69,7 @@ export const createDevice = (params: CreateDeviceParams): Device => {
   return {
     id: params.id,
     name: params.name,
-    pricePence: params.pricePence,
+    price: params.price,
     description: params.description,
     updatedAt: params.updatedAt,
   };

@@ -36,6 +36,7 @@ export async function upsertDevice(
     const device = createDevice({
       ...command,
       updatedAt: now(),
+      price: 0,
     });
 
     // Save (upsert) the device

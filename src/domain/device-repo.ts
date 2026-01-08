@@ -1,4 +1,4 @@
-import { Device as Device } from './device';
+import { Device } from './device';
 
 /**
  * Repository interface for persisting and retrieving Device entities.
