@@ -79,4 +79,4 @@ jobs:
             https://ica-function-jc76.scm.azurewebsites.net/api/zipdeploy \
             --data-binary @package.zip \
             -H "Content-Type: application/octet-stream" \
-            --user "\$ica-function-jc76:${{ secrets.AZURE_PUBLISH_PASSWORD }}"
+            --user "${{ secrets.AZURE_PUBLISH_USERNAME }}:${{ secrets.AZURE_PUBLISH_PASSWORD }}"
