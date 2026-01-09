@@ -67,9 +67,21 @@ jobs:
           name: functionapp-package
           path: package
 
-      - name: Zip package
+      - name: Prepare deployment package
         run: |
-          cd package
+          # Create a clean deploy directory
+          rm -rf deploy
+          mkdir deploy
+
+          # Copy only production files to deploy directory
+          cp host.json deploy/
+          cp package.json deploy/
+          cp package-lock.json deploy/
+          cp -r package/dist deploy/
+          cp -r package/node_modules deploy/
+
+          # Zip from within the deploy directory so files are at the root of the zip
+          cd deploy
           zip -r ../package.zip .
           cd ..
 
