@@ -1,4 +1,4 @@
-# Backend Device Service Example
+# Backend Device Service for Campus Loans ICA
 
 ## Project
 
