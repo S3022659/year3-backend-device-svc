@@ -1,4 +1,4 @@
-# Backend Service Testing Example
+# Backend Device Service Example
 
 ## Project
 
