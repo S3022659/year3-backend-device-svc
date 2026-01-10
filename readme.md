@@ -1,6 +1,6 @@
 # Backend Device Service for Campus Loans ICA
 
-## Project
+## Project Description
 
 This project provides Azure Functions for managing devices.
 
