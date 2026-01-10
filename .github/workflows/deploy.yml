@@ -67,16 +67,9 @@ jobs:
           name: functionapp-package
           path: package
 
-      - name: Zip package
-        run: |
-          cd package
-          zip -r ../package.zip .
-          cd ..
-
-      - name: Deploy to Azure Function App via Kudu API
-        run: |
-          curl -X POST \
-            https://ica-function-jc76.scm.azurewebsites.net/api/zipdeploy \
-            --data-binary @package.zip \
-            -H "Content-Type: application/octet-stream" \
-            --user "${{ secrets.AZURE_PUBLISH_USERNAME }}:${{ secrets.AZURE_PUBLISH_PASSWORD }}"
+      - name: Deploy to Azure Function App
+        uses: Azure/functions-action@v1
+        with:
+          app-name: 'ica-function-jc76'
+          package: package
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
